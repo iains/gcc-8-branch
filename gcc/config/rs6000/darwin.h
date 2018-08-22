@@ -180,6 +180,12 @@
   { "darwin_crt2", DARWIN_CRT2_SPEC },		\
   { "darwin_subarch", DARWIN_SUBARCH_SPEC },
 
+/* We need to jam the dylib crt to 10.5 for 10.6 (Rosetta) use.  */
+#undef DARWIN_DYLIB1_SPEC
+#define DARWIN_DYLIB1_SPEC						\
+  "%:version-compare(!> 10.5 mmacosx-version-min= -ldylib1.o)		\
+   %:version-compare(>< 10.5 10.7 mmacosx-version-min= -ldylib1.10.5.o)"
+
 /* Output a .machine directive.  */
 #undef TARGET_ASM_FILE_START
 #define TARGET_ASM_FILE_START rs6000_darwin_file_start
