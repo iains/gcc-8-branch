@@ -268,7 +268,6 @@ along with GCC; see the file COPYING3.  If not see
       {									\
 	const char *name = machopic_mcount_stub_name ();		\
 	fprintf (FILE, "\tcall %s\n", name+1);  /*  skip '&'  */	\
-	machopic_validate_stub_or_non_lazy_ptr (name);			\
       }									\
     else fprintf (FILE, "\tcall mcount\n");				\
   } while (0)
