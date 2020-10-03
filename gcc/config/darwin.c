@@ -1447,6 +1447,9 @@ darwin_objc2_section (tree decl ATTRIBUTE_UNUSED, tree meta, section * base)
 
   else if (!strncmp (p, "G2_META", 7) || !strncmp (p, "G2_CLAS", 7))
     return darwin_sections[objc2_classdefs_section];
+  else if (!strncmp (p, "V2_PCOL", 7))
+    return ld_uses_coal_sects ? darwin_sections[data_coal_section]
+			      : darwin_sections[objc2_data_section];
   else if (!strncmp (p, "V2_MREF", 7))
     return darwin_sections[objc2_message_refs_section];
   else if (!strncmp (p, "V2_CLRF", 7))
@@ -1481,6 +1484,9 @@ darwin_objc2_section (tree decl ATTRIBUTE_UNUSED, tree meta, section * base)
 
   else if (!strncmp (p, "V2_CSTR", 7))
     return darwin_sections[objc2_constant_string_object_section];
+
+  else if (!strncmp (p, "V2_IVRF", 7))
+    return darwin_sections[objc2_ivar_section];
 
   /* Not recognized, default.  */
   return base;
