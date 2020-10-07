@@ -66,4 +66,15 @@ along with GCC; see the file COPYING3.  If not see
 {
   return class_getName (isa);
 }
+
+- (id) retain
+{
+  return self;
+}
+
+- (void) release
+{
+  return;
+}
+
 @end
