@@ -6145,7 +6145,7 @@ potential_constant_expression_1 (tree t, bool want_rval, bool strict, bool now,
       return RECUR (TREE_OPERAND (t, 0), rval);
 
     default:
-      if (objc_is_property_ref (t))
+      if (objc_non_constant_expr_p (t))
 	return false;
 
       sorry ("unexpected AST of kind %s", get_tree_code_name (TREE_CODE (t)));
