@@ -52,7 +52,7 @@ case "${target}" in
 		TSAN_TARGET_DEPENDENT_OBJECTS=tsan_rtl_aarch64.lo
 	fi
 	;;
-  x86_64-*-darwin[1]* | i?86-*-darwin[1]*)
+  x86_64-*-darwin[12]* | i?86-*-darwin[1]*)
 	TSAN_SUPPORTED=no
 	;;
   *)
