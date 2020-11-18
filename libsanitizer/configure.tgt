@@ -54,6 +54,7 @@ case "${target}" in
 	;;
   x86_64-*-darwin[12]* | i?86-*-darwin[1]*)
 	TSAN_SUPPORTED=no
+	EXTRA_CXXFLAGS+="-Wl,-undefined,dynamic_lookup"
 	;;
   *)
 	UNSUPPORTED=1
