@@ -1,5 +1,6 @@
 /* Contributed by Nicola Pero <nicola.pero@meta-innovation.com>, November 2010.  */
 /* { dg-do compile } */
+/* { dg-additional-options "-Wno-objc-root-class" } */
 
 /* Test that properties of type arrays or bitfields are rejected.  */
 
@@ -11,8 +12,8 @@
 {
   Class isa;
 }
-@property int a[8]; /* { dg-error "property can not be an array" } */
+@property int a[8]; /* { dg-error "property cannot be an array" } */
 @property int b:8;  /* { dg-error "expected" } */
-@property int c[];  /* { dg-error "property can not be an array" } */
+@property int c[];  /* { dg-error "property cannot be an array" } */
 /* { dg-error "forbids flexible array member" "flexible array member" { target *-*-* } .-1 } */
 @end
