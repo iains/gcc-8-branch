@@ -5129,6 +5129,7 @@ check_user_alignment (const_tree align, bool allow_zero)
 
   if (error_operand_p (align))
     return -1;
+  STRIP_NOPS (align);
   if (TREE_CODE (align) != INTEGER_CST
       || !INTEGRAL_TYPE_P (TREE_TYPE (align)))
     {
