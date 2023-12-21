@@ -300,7 +300,14 @@ case "${TARGET}" in
   POWERPC_FREEBSD)
 	SOURCES="ffi.c ffi_sysv.c sysv.S ppc_closure.S"
 	;;
-  X86 | X86_DARWIN | X86_FREEBSD | X86_WIN32)
+  X86_DARWIN)
+	if test "$MSVC" = 1; then
+		SOURCES="ffi.c sysv_intel.S"
+	else
+		SOURCES="darwin_c.c darwin.S"
+	fi
+	;;
+  X86 | X86_FREEBSD | X86_WIN32)
 	if test "$MSVC" = 1; then
 		SOURCES="ffi.c sysv_intel.S"
 	else
