@@ -40,11 +40,11 @@
 .globl _ffi_call_SYSV
 
 _ffi_call_SYSV:
-.LFB1:
+LFB1:
         pushl %ebp
-.LCFI0:
+LCFI0:
         movl  %esp,%ebp
-.LCFI1:
+LCFI1:
         subl $8,%esp
 	/* Make room for all of the new args.  */
 	movl  16(%ebp),%ecx
@@ -83,24 +83,24 @@ _ffi_call_SYSV:
 0:
 	.align 4
 	call 1f
-.Lstore_table:
-	.long   noretval-.Lstore_table		/* FFI_TYPE_VOID */
-	.long   retint-.Lstore_table		/* FFI_TYPE_INT */
-	.long   retfloat-.Lstore_table		/* FFI_TYPE_FLOAT */
-	.long   retdouble-.Lstore_table		/* FFI_TYPE_DOUBLE */
-	.long   retlongdouble-.Lstore_table     /* FFI_TYPE_LONGDOUBLE */
-	.long   retuint8-.Lstore_table		/* FFI_TYPE_UINT8 */
-	.long   retsint8-.Lstore_table		/* FFI_TYPE_SINT8 */
-	.long   retuint16-.Lstore_table		/* FFI_TYPE_UINT16 */
-	.long   retsint16-.Lstore_table		/* FFI_TYPE_SINT16 */
-	.long   retint-.Lstore_table		/* FFI_TYPE_UINT32 */
-	.long   retint-.Lstore_table		/* FFI_TYPE_SINT32 */
-	.long   retint64-.Lstore_table		/* FFI_TYPE_UINT64 */
-	.long   retint64-.Lstore_table		/* FFI_TYPE_SINT64 */
-	.long   retstruct-.Lstore_table		/* FFI_TYPE_STRUCT */
-	.long   retint-.Lstore_table		/* FFI_TYPE_POINTER */
-	.long   retstruct1b-.Lstore_table	/* FFI_TYPE_SMALL_STRUCT_1B */
-	.long   retstruct2b-.Lstore_table	/* FFI_TYPE_SMALL_STRUCT_2B */
+Lstore_table:
+	.long   noretval-Lstore_table		/* FFI_TYPE_VOID */
+	.long   retint-Lstore_table		/* FFI_TYPE_INT */
+	.long   retfloat-Lstore_table		/* FFI_TYPE_FLOAT */
+	.long   retdouble-Lstore_table		/* FFI_TYPE_DOUBLE */
+	.long   retlongdouble-Lstore_table     /* FFI_TYPE_LONGDOUBLE */
+	.long   retuint8-Lstore_table		/* FFI_TYPE_UINT8 */
+	.long   retsint8-Lstore_table		/* FFI_TYPE_SINT8 */
+	.long   retuint16-Lstore_table		/* FFI_TYPE_UINT16 */
+	.long   retsint16-Lstore_table		/* FFI_TYPE_SINT16 */
+	.long   retint-Lstore_table		/* FFI_TYPE_UINT32 */
+	.long   retint-Lstore_table		/* FFI_TYPE_SINT32 */
+	.long   retint64-Lstore_table		/* FFI_TYPE_UINT64 */
+	.long   retint64-Lstore_table		/* FFI_TYPE_SINT64 */
+	.long   retstruct-Lstore_table		/* FFI_TYPE_STRUCT */
+	.long   retint-Lstore_table		/* FFI_TYPE_POINTER */
+	.long   retstruct1b-Lstore_table	/* FFI_TYPE_SMALL_STRUCT_1B */
+	.long   retstruct2b-Lstore_table	/* FFI_TYPE_SMALL_STRUCT_2B */
 1:
 	pop  %esi
 	add  (%esi, %ecx, 4), %esi
@@ -175,7 +175,7 @@ epilogue:
 	popl %ebp
 	ret
 
-.LFE1:
+LFE1:
 .ffi_call_SYSV_end:
 
 	.align	4
@@ -183,11 +183,11 @@ FFI_HIDDEN (ffi_closure_SYSV)
 .globl _ffi_closure_SYSV
 
 _ffi_closure_SYSV:
-.LFB2:
+LFB2:
 	pushl	%ebp
-.LCFI2:
+LCFI2:
 	movl	%esp, %ebp
-.LCFI3:
+LCFI3:
 	subl	$40, %esp
 	leal	-24(%ebp), %edx
 	movl	%edx, -12(%ebp)	/* resp */
@@ -196,66 +196,66 @@ _ffi_closure_SYSV:
 	leal	-12(%ebp), %edx
 	movl	%edx, (%esp)	/* &resp */
 	movl	%ebx, 8(%esp)
-.LCFI7:
+LCFI7:
 	call	L_ffi_closure_SYSV_inner$stub
 	movl	8(%esp), %ebx
 	movl	-12(%ebp), %ecx
 	cmpl	$FFI_TYPE_INT, %eax
-	je	.Lcls_retint
+	je	Lcls_retint
 
 	/* Handle FFI_TYPE_UINT8, FFI_TYPE_SINT8, FFI_TYPE_UINT16,
 	   FFI_TYPE_SINT16, FFI_TYPE_UINT32, FFI_TYPE_SINT32.  */
 	cmpl	$FFI_TYPE_UINT64, %eax
 	jge	0f
 	cmpl	$FFI_TYPE_UINT8, %eax
-	jge	.Lcls_retint
+	jge	Lcls_retint
 
 0:	cmpl	$FFI_TYPE_FLOAT, %eax
-	je	.Lcls_retfloat
+	je	Lcls_retfloat
 	cmpl	$FFI_TYPE_DOUBLE, %eax
-	je	.Lcls_retdouble
+	je	Lcls_retdouble
 	cmpl	$FFI_TYPE_LONGDOUBLE, %eax
-	je	.Lcls_retldouble
+	je	Lcls_retldouble
 	cmpl	$FFI_TYPE_SINT64, %eax
-	je	.Lcls_retllong
+	je	Lcls_retllong
 	cmpl	$FFI_TYPE_SMALL_STRUCT_1B, %eax
-	je	.Lcls_retstruct1b
+	je	Lcls_retstruct1b
 	cmpl	$FFI_TYPE_SMALL_STRUCT_2B, %eax
-	je	.Lcls_retstruct2b
+	je	Lcls_retstruct2b
 	cmpl	$FFI_TYPE_STRUCT, %eax
-	je	.Lcls_retstruct
-.Lcls_epilogue:
+	je	Lcls_retstruct
+Lcls_epilogue:
 	movl	%ebp, %esp
 	popl	%ebp
 	ret
-.Lcls_retint:
+Lcls_retint:
 	movl	(%ecx), %eax
-	jmp	.Lcls_epilogue
-.Lcls_retfloat:
+	jmp	Lcls_epilogue
+Lcls_retfloat:
 	flds	(%ecx)
-	jmp	.Lcls_epilogue
-.Lcls_retdouble:
+	jmp	Lcls_epilogue
+Lcls_retdouble:
 	fldl	(%ecx)
-	jmp	.Lcls_epilogue
-.Lcls_retldouble:
+	jmp	Lcls_epilogue
+Lcls_retldouble:
 	fldt	(%ecx)
-	jmp	.Lcls_epilogue
-.Lcls_retllong:
+	jmp	Lcls_epilogue
+Lcls_retllong:
 	movl	(%ecx), %eax
 	movl	4(%ecx), %edx
-	jmp	.Lcls_epilogue
-.Lcls_retstruct1b:
+	jmp	Lcls_epilogue
+Lcls_retstruct1b:
 	movsbl	(%ecx), %eax
-	jmp	.Lcls_epilogue
-.Lcls_retstruct2b:
+	jmp	Lcls_epilogue
+Lcls_retstruct2b:
 	movswl	(%ecx), %eax
-	jmp	.Lcls_epilogue
-.Lcls_retstruct:
+	jmp	Lcls_epilogue
+Lcls_retstruct:
 	lea -8(%ebp),%esp
 	movl	%ebp, %esp
 	popl	%ebp
 	ret $4
-.LFE2:
+LFE2:
 
 #if !FFI_NO_RAW_API
 
@@ -269,13 +269,13 @@ FFI_HIDDEN (ffi_closure_raw_SYSV)
 .globl _ffi_closure_raw_SYSV
 
 _ffi_closure_raw_SYSV:
-.LFB3:
+LFB3:
 	pushl	%ebp
-.LCFI4:
+LCFI4:
 	movl	%esp, %ebp
-.LCFI5:
+LCFI5:
 	pushl	%esi
-.LCFI6:
+LCFI6:
 	subl	$36, %esp
 	movl	RAW_CLOSURE_CIF_OFFSET(%eax), %esi	 /* closure->cif */
 	movl	RAW_CLOSURE_USER_DATA_OFFSET(%eax), %edx /* closure->user_data */
@@ -288,45 +288,45 @@ _ffi_closure_raw_SYSV:
 	call	*RAW_CLOSURE_FUN_OFFSET(%eax)		 /* closure->fun */
 	movl	CIF_FLAGS_OFFSET(%esi), %eax		 /* rtype */
 	cmpl	$FFI_TYPE_INT, %eax
-	je	.Lrcls_retint
+	je	Lrcls_retint
 
 	/* Handle FFI_TYPE_UINT8, FFI_TYPE_SINT8, FFI_TYPE_UINT16,
 	   FFI_TYPE_SINT16, FFI_TYPE_UINT32, FFI_TYPE_SINT32.  */
 	cmpl	$FFI_TYPE_UINT64, %eax
 	jge	0f
 	cmpl	$FFI_TYPE_UINT8, %eax
-	jge	.Lrcls_retint
+	jge	Lrcls_retint
 0:
 	cmpl	$FFI_TYPE_FLOAT, %eax
-	je	.Lrcls_retfloat
+	je	Lrcls_retfloat
 	cmpl	$FFI_TYPE_DOUBLE, %eax
-	je	.Lrcls_retdouble
+	je	Lrcls_retdouble
 	cmpl	$FFI_TYPE_LONGDOUBLE, %eax
-	je	.Lrcls_retldouble
+	je	Lrcls_retldouble
 	cmpl	$FFI_TYPE_SINT64, %eax
-	je	.Lrcls_retllong
-.Lrcls_epilogue:
+	je	Lrcls_retllong
+Lrcls_epilogue:
 	addl	$36, %esp
 	popl	%esi
 	popl	%ebp
 	ret
-.Lrcls_retint:
+Lrcls_retint:
 	movl	-24(%ebp), %eax
-	jmp	.Lrcls_epilogue
-.Lrcls_retfloat:
+	jmp	Lrcls_epilogue
+Lrcls_retfloat:
 	flds	-24(%ebp)
-	jmp	.Lrcls_epilogue
-.Lrcls_retdouble:
+	jmp	Lrcls_epilogue
+Lrcls_retdouble:
 	fldl	-24(%ebp)
-	jmp	.Lrcls_epilogue
-.Lrcls_retldouble:
+	jmp	Lrcls_epilogue
+Lrcls_retldouble:
 	fldt	-24(%ebp)
-	jmp	.Lrcls_epilogue
-.Lrcls_retllong:
+	jmp	Lrcls_epilogue
+Lrcls_retllong:
 	movl	-24(%ebp), %eax
 	movl	-20(%ebp), %edx
-	jmp	.Lrcls_epilogue
-.LFE3:
+	jmp	Lrcls_epilogue
+LFE3:
 #endif
 
 .section __IMPORT,__jump_table,symbol_stubs,self_modifying_code+pure_instructions,5
@@ -362,19 +362,19 @@ LSFDE1:
 	.long	L$set$1
 LASFDE1:
 	.long	LASFDE1-EH_frame1
-	.long	.LFB1-.
-	.set L$set$2,.LFE1-.LFB1
+	.long	LFB1-.
+	.set L$set$2,LFE1-LFB1
 	.long L$set$2
 	.byte	0x0
 	.byte	0x4
-	.set L$set$3,.LCFI0-.LFB1
+	.set L$set$3,LCFI0-LFB1
 	.long L$set$3
 	.byte	0xe
 	.byte	0x8
 	.byte	0x84
 	.byte	0x2
 	.byte	0x4
-	.set L$set$4,.LCFI1-.LCFI0
+	.set L$set$4,LCFI1-LCFI0
 	.long L$set$4
 	.byte	0xd
 	.byte	0x4
@@ -387,19 +387,19 @@ LSFDE2:
 	.long	L$set$5
 LASFDE2:
 	.long	LASFDE2-EH_frame1
-	.long	.LFB2-.
-	.set L$set$6,.LFE2-.LFB2
+	.long	LFB2-.
+	.set L$set$6,LFE2-LFB2
 	.long L$set$6
 	.byte	0x0
 	.byte	0x4
-	.set L$set$7,.LCFI2-.LFB2
+	.set L$set$7,LCFI2-LFB2
 	.long L$set$7
 	.byte	0xe
 	.byte	0x8
 	.byte	0x84
 	.byte	0x2
 	.byte	0x4
-	.set L$set$8,.LCFI3-.LCFI2
+	.set L$set$8,LCFI3-LCFI2
 	.long L$set$8
 	.byte	0xd
 	.byte	0x4
@@ -415,24 +415,24 @@ LSFDE3:
 	.long	L$set$10
 LASFDE3:
 	.long	LASFDE3-EH_frame1
-	.long	.LFB3-.
-	.set L$set$11,.LFE3-.LFB3
+	.long	LFB3-.
+	.set L$set$11,LFE3-LFB3
 	.long L$set$11
 	.byte	0x0
 	.byte	0x4
-	.set L$set$12,.LCFI4-.LFB3
+	.set L$set$12,LCFI4-LFB3
 	.long L$set$12
 	.byte	0xe
 	.byte	0x8
 	.byte	0x84
 	.byte	0x2
 	.byte	0x4
-	.set L$set$13,.LCFI5-.LCFI4
+	.set L$set$13,LCFI5-LCFI4
 	.long L$set$13
 	.byte	0xd
 	.byte	0x4
 	.byte	0x4
-	.set L$set$14,.LCFI6-.LCFI5
+	.set L$set$14,LCFI6-LCFI5
 	.long L$set$14
 	.byte	0x85
 	.byte	0x3

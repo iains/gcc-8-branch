@@ -5924,7 +5924,7 @@ fi
 # and a number of others; see the list at the start of the file.
 
 libgcj_cflags=
-libgcj_cxxflags=
+libgcj_cxxflags=-std=c++98
 libgcj_javaflags=
 libgcj_sublib_ltflags=
 libgcj_sublib_core_extra_deps=

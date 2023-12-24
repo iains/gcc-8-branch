@@ -90,7 +90,7 @@ void ffi_prep_args(char *stack, extended_cif *ecif)
 
       /* Align if necessary */
       if ((sizeof(void*) - 1) & (size_t) argp)
-        argp = (char *) ALIGN(argp, sizeof(void*));
+        argp = (char *) FFI_ALIGN(argp, sizeof(void*));
 
       z = (*p_arg)->size;
 #ifdef X86_WIN64
@@ -287,7 +287,7 @@ ffi_status ffi_prep_cif_machdep(ffi_cif *cif)
 #endif
             cif->flags = FFI_TYPE_STRUCT;
           /* allocate space for return value pointer */
-          cif->bytes += ALIGN(sizeof(void*), FFI_SIZEOF_ARG);
+          cif->bytes += FFI_ALIGN(sizeof(void*), FFI_SIZEOF_ARG);
         }
       break;
 
@@ -306,8 +306,8 @@ ffi_status ffi_prep_cif_machdep(ffi_cif *cif)
   for (ptr = cif->arg_types, i = cif->nargs; i > 0; i--, ptr++)
     {
       if (((*ptr)->alignment - 1) & cif->bytes)
-        cif->bytes = ALIGN(cif->bytes, (*ptr)->alignment);
-      cif->bytes += ALIGN((*ptr)->size, FFI_SIZEOF_ARG);
+        cif->bytes = FFI_ALIGN(cif->bytes, (*ptr)->alignment);
+      cif->bytes += FFI_ALIGN((*ptr)->size, FFI_SIZEOF_ARG);
     }
 
 #ifdef X86_WIN64
@@ -536,7 +536,7 @@ ffi_prep_incoming_args_SYSV(char *stack, void **rvalue, void **avalue,
 
       /* Align if necessary */
       if ((sizeof(void*) - 1) & (size_t) argp) {
-        argp = (char *) ALIGN(argp, sizeof(void*));
+        argp = (char *) FFI_ALIGN(argp, sizeof(void*));
       }
 
 #ifdef X86_WIN64
